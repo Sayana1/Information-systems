@@ -1,21 +1,41 @@
 package com.company;
 
+import  java.util.Scanner;
+
 public class Main {
 
-    public static void main(String[] args) {
-        java.util.Scanner scan = new java.util.Scanner(System.in);
-        System.out.println("enter n m");
-        int n = scan.nextInt();
-        int m = scan.nextInt();
-        System.out.println(gcd(n, m));
-    }
 
-    public static int gcd(int n, int m) {
-        while (m != 0) {
-            int tmp = n % m;
-            n = m;
-            m = tmp;
+        public static void main(String[] args) {
+
+            System.out.println("enter a string" );
+
+            Scanner scan = new Scanner(System.in);
+            String s = scan.next();
+
+            String encode = rot13(s);
+            String decode = rot13(encode);
+
+            System.out.println("Enoded string:" );
+            System.out.println(encode);
+
+            System.out.println("Decoded string:" );
+            System.out.println(decode);
+
         }
-        return n;
+
+    public static String rot13(String s)
+    {
+        int s_length = s.length();
+        char result [] = new char [s_length];
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if       (c >= 'a' && c <= 'm') c += 13;
+            else if  (c >= 'A' && c <= 'M') c += 13;
+            else if  (c >= 'n' && c <= 'z') c -= 13;
+            else if  (c >= 'N' && c <= 'Z') c -= 13;
+            result[i] = c;
+        }
+        String r = String.valueOf(result);
+        return r;
     }
 }
