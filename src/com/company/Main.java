@@ -1,4 +1,5 @@
 //this is task 2
+
 package com.company;
 
 import  java.util.Scanner;
