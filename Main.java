@@ -1,41 +1,55 @@
 package com.company;
 
-import  java.util.Scanner;
+import java.util.Scanner;
+
+
 
 public class Main {
 
+    public static void main(String[] args) {
 
-        public static void main(String[] args) {
+        System.out.println("Enter a hexadecimal string ");
 
-            System.out.println("enter a string" );
+        Scanner scan = new Scanner(System.in);
 
-            Scanner scan = new Scanner(System.in);
-            String s = scan.next();
+        String s = scan.next();
+        s = s.toUpperCase();
 
-            String encode = rot13(s);
-            String decode = rot13(encode);
-
-            System.out.println("Enoded string:" );
-            System.out.println(encode);
-
-            System.out.println("Decoded string:" );
-            System.out.println(decode);
-
-        }
-
-    public static String rot13(String s)
-    {
-        int s_length = s.length();
-        char result [] = new char [s_length];
-        for (int i = 0; i < s.length(); i++) {
+        for(int i = 0; i < s.length(); i++)
+        {
             char c = s.charAt(i);
-            if       (c >= 'a' && c <= 'm') c += 13;
-            else if  (c >= 'A' && c <= 'M') c += 13;
-            else if  (c >= 'n' && c <= 'z') c -= 13;
-            else if  (c >= 'N' && c <= 'Z') c -= 13;
-            result[i] = c;
+            if(c > 'F')
+            {
+                System.out.println("error");
+                return;
+            }
         }
-        String r = String.valueOf(result);
-        return r;
+        int a = _16to10(s);
+
+        System.out.println(a);
+
+    }
+
+
+
+
+    public static int _16to10(String s)
+    {
+        String hex = "0123456789ABCDEF";
+
+        int s_len = s.length();
+        int result = 0;
+
+
+        for(int i = 0; i < s_len; i++)
+        {
+            char c = s.charAt(i);
+            int a = hex.indexOf(c);
+
+            result = result + (a * (int)Math.pow(16, (s_len-i-1)));
+        }
+
+        return result;
+
     }
 }
