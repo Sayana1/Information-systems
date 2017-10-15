@@ -9,7 +9,7 @@ public class MainFileZip {
 
     public static void main(String[] args) throws IOException {
 
-        Path _path = Paths.get("C:/Program Files/Java/jdk-0/lib/src.zip");
+        Path _path = Paths.get("C:/Program Files/Java/jdk-9/lib/src.zip");
 
         Files.walk(_path).filter(path -> !Files.isDirectory(path)).filter(path->MainFileZip.isRight(path))
                 .forEachOrdered(System.out::println);
