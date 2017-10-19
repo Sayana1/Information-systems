@@ -3,7 +3,6 @@ package com.company;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class MainCountSymbol {
 
@@ -17,9 +16,7 @@ public class MainCountSymbol {
 
 	String text = new String(data);
 
-	System.out.println("enter symbol");
-	Scanner s = new Scanner(System.in);
-	String str = s.next();
+	String str = args[0];
 	if(str.length() > 1)
     {
         System.out.println("error");
