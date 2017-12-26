@@ -17,7 +17,7 @@ public class task7 {
             return;
         RandomAccessFile raf = new RandomAccessFile(file, "r");
 
-        List<String> strList = new ArrayList<>();
+        List<String> strList = new ArrayList<String>(num);
 
         for (int i = 0; i < num; i++) {
 
