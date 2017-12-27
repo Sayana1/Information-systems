@@ -1,12 +1,12 @@
 package com.company;
 
-import java.util.function.IntSupplier;
-import java.util.function.DoubleSupplier;
-import java.util.function.Supplier;
+import java.util.*;
 import java.util.Scanner;
+import java.util.stream.StreamSupport;
 import java.util.stream.IntStream;
 import java.util.stream.DoubleStream;
 import java.util.stream.Stream;
+
 public class Streams4 {
 
     public static void main(String[] args) {
@@ -24,68 +24,50 @@ public class Streams4 {
 
 
 
-          //  Stream c = streamWords(s);
-            //c.limit(10).forEach(System.out::println);
-
-
-            Stream d = streamLine(s);
-            d.limit(10).forEach(System.out::println);
+            Stream c = streamW(s);
+            c.limit(10).forEach(System.out::println);
 
     }
 
     //for int
     public static IntStream streamInt(Scanner s)
     {
-        IntSupplier int_supplier = new IntSupplier() {
+        Spliterator.OfInt spliterator_ = Spliterators.spliterator(new PrimitiveIterator.OfInt() {
+
             @Override
-            public int getAsInt() {
+            public boolean hasNext() {
+                return s.hasNextInt();
+            }
+
+            @Override
+            public int nextInt() {
                 return s.nextInt();
             }
-        };
-        IntStream result = IntStream.generate(int_supplier);
-        return result;
+        }, Long.MAX_VALUE, Spliterator.NONNULL | Spliterator.ORDERED);
+        return StreamSupport.intStream(spliterator_, false);
     }
 
     //for double
     public static DoubleStream streamD(Scanner s)
     {
-        DoubleSupplier d_supplier = new DoubleSupplier() {
+          Spliterator.OfDouble spliterator_ = Spliterators.spliterator(new PrimitiveIterator.OfDouble() {
+
             @Override
-            public double getAsDouble() {
+            public boolean hasNext() {
+                return s.hasNextDouble();
+            }
+
+            @Override
+            public double nextDouble() {
                 return s.nextDouble();
             }
-        };
-
-        DoubleStream result = DoubleStream.generate(d_supplier);
-        return result;
+        }, Long.MAX_VALUE, Spliterator.NONNULL | Spliterator.ORDERED);
+        return StreamSupport.doubleStream(spliterator_, false);
     }
 
-    //for line
-    public static Stream streamLine(Scanner s)
-    {
-        Supplier line_supplier = new Supplier() {
-            @Override
-            public Object get() {
-                return s.nextLine();
-            }
-        };
-
-        Stream result = Stream.generate(line_supplier);
-        return result;
-    }
-
-    //for words
-    public static Stream streamWords(Scanner s)
-    {
-        Supplier word_supplier = new Supplier() {
-            @Override
-            public Object get() {
-                return s.next();
-            }
-        };
-
-        Stream result = Stream.generate(word_supplier);
-        return result;
+    public static Stream streamW(Scanner s) {
+        Spliterator<String> spliterator_ = Spliterators.spliterator(s, Long.MAX_VALUE, Spliterator.NONNULL | Spliterator.ORDERED);
+        return StreamSupport.stream(spliterator_, false);
     }
 }
 
